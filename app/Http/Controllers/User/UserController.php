@@ -42,45 +42,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $personal = new Personal();
-        $personal->lastName = $request->input('lastName');
-        $personal->firstName = $request->input('firstName');
-        $personal->address = $request->input('address');
-        $personal->phone = $request->input('phone');
-        $personal->user_id = Auth::user()->id;
-        $personal->save();
-        DB::update("UPDATE users SET isRegister = true WHERE id = ".Auth::user()->id);
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/avatar/', $filename);
-            DB::table('users')
-            ->where('id', Auth::user()->id)
-            ->update(['avatar' => $filename]);
-        }
-        return redirect()->route('userPost');
-    }
-
-    public function storeCompany(Request $request)
-    {
-            $company = new Company();
-            $company->companyName = $request->input('companyName');
-            $company->address = $request->input('address');
-            $company->phone = $request->input('phone');
-            $company->user_id = Auth::user()->id;
-            $company->save();
-            DB::update("UPDATE users SET isRegister = true WHERE id = ".Auth::user()->id);
-            if ($request->hasFile('avatar')) {
-                $file = $request->file('avatar');
-                $extension = $file->getClientOriginalExtension();
-                $filename = time() . '.' . $extension;
-                $file->move('uploads/avatar/', $filename);
-                DB::table('users')
-                    ->where('id', Auth::user()->id)
-                    ->update(['avatar' => $filename]);
-            }
-            return redirect()->route('userPost');
 
     }
 
