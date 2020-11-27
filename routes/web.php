@@ -52,9 +52,6 @@ Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name(
 
 //ROUTE FOR USER CONTROLLER
 Route::get('/deactivate', [UserController::class, 'showDash'])->middleware('auth')->name('user.dash');
-Route::post('/userRegistering', [UserController::class, 'store'])->middleware('auth')->name('user.store');
-Route::get('/CompanyRegistering', [UserController::class, 'storeCompany'])->middleware('auth')->name('user.storeCompany');
-Route::post('/CompanyRegistering', [UserController::class, 'storeCompany'])->middleware('auth')->name('user.storeCompany');
 Route::get('/updateUserProfile/{id}', [UserController::class, 'edit'])->middleware('auth')->name('user.updateProfile');
 Route::post('/updateUserProfile/{id}', [UserController::class, 'updateUser'])->middleware('auth')->name('user.updateProfiled');
 // Route::get('/updateCompanyProfile/{id}', [UserController::class, 'UpdateCompany'])->name();
