@@ -141,7 +141,7 @@ class AdvertisementController extends Controller
     public function deactivate($id)
     {
         DB::update("UPDATE advertisements SET isAvailable = false WHERE id = $id");
-        return back();
+        return redirect()->route('home.index');
     }
 
     public function activate($id)
