@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\Company;
 use App\Models\Personal;
 use App\Models\Advertisement;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -30,49 +31,61 @@ class HomeController extends Controller
     {
         $users = User::all()->where('isAdmin', 0);
         $advertisements = Advertisement::all()->where('user_id', Auth::user()->id);
-
-        if(Auth::check() && Auth::user()->isAdmin == false)
+        if(Auth::user()->isAdmin == 0 && Auth::user()->isActive == 1)
         {
-            if (Auth::user()->isCompany == true && Auth::user()->isRegister == false) {
-                $company = new Company();
-                $company->companyName = Auth::user()->name;
-                $company->address = Auth::user()->address;
-                $company->phone = Auth::user()->phone;
-                $company->user_id = Auth::user()->id;
-                $company->save();
-                DB::update("UPDATE users SET isRegister = true WHERE id = ".Auth::user()->id);
-                return Inertia::render('User/Dashboard', [
-                    'advertisements' => $advertisements,
-                ]);
+            if(Auth::user()->isCompany == false)
+            {
+                if(Auth::user()->isRegister == 1)
+                {
+                    return Inertia::render('User/Dashboard',[
+                        'advertisements' => $advertisements
+                    ]);
+                }
+                else{
+                    $personal = new Personal();
+                    $personal->lastName = Auth::user()->name;
+                    $personal->firstName = Auth::user()->username;
+                    $personal->address = Auth::user()->address;
+                    $personal->phone = Auth::user()->phone;
+                    $personal->user_id = Auth::user()->id;
+                    $personal->save();
+                    DB::update("UPDATE users SET isRegister = 1 WHERE id = ".Auth::user()->id);
+                    return Inertia::render('User/Dashboard',[
+                        'advertisements' => $advertisements
+                    ]);
+                }
             }
-            elseif(Auth::user()->isCompany == false && Auth::user()->isRegister == false) {
-                $personal = new Personal();
-                $personal->lastName = Auth::user()->username;
-                $personal->firstName = Auth::user()->name;
-                $personal->address = Auth::user()->address;
-                $personal->phone = Auth::user()->phone;
-                $personal->user_id = Auth::user()->id;
-                $personal->save();
-                DB::update("UPDATE users SET isRegister = true WHERE id = ".Auth::user()->id);
-                return Inertia::render('User/Dashboard', [
-                    'advertisements' => $advertisements,
-                ]);
-            }
-            else {
-                return Inertia::render('User/Dashboard', [
-                    'advertisements' => $advertisements,
-                ]);
+            else
+            {
+                if(Auth::user()->isRegister == 1)
+                {
+                    return Inertia::render('User/Dashboard',[
+                        'advertisements' => $advertisements
+                    ]);
+                }
+                else{
+                    $company = new Company();
+                    $company->companyName = Auth::user()->name;
+                    $company->address = Auth::user()->address;
+                    $company->phone = Auth::user()->phone;
+                    $company->user_id = Auth::user()->id;
+                    $company->save();
+                    DB::update("UPDATE users SET isRegister = 1 WHERE id = ".Auth::user()->id);
+                    return Inertia::render('User/Dashboard',[
+                        'advertisements' => $advertisements
+                    ]);
+                }
             }
         }
-        elseif(Auth::check() && Auth::user()->isAdmin == false && Auth::user()->isActive == false)
+        elseif(Auth::user()->isAdmin == 0 && Auth::user()->isActive == 0)
         {
             return Inertia::render('User/Deactivate');
         }
-        else
-        {
-            return Inertia::render('Admin/Index',[
+        else{
+            return Inertia::render('Admin/Index', [
                 'users' => $users
             ]);
         }
+
     }
 }
