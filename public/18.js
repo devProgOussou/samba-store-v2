@@ -53,6 +53,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: ["advertisements"],
@@ -84,6 +91,15 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     }
+  },
+  mounted: function mounted() {
+    var unix_timestamp = 1549312452;
+    var date = new Date(unix_timestamp * 1000);
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+    var formattedTime = hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+    console.log(formattedTime);
   }
 });
 
@@ -105,100 +121,154 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "container" }, [
-      _c(
-        "div",
-        { staticClass: "row" },
-        _vm._l(_vm.advertisements, function(item) {
-          return _c("div", { key: item.id, staticClass: "mt-5" }, [
-            _c(
-              "div",
-              {
-                staticClass: "card mr-4 carousel slide mt-5",
-                staticStyle: { width: "25rem", height: "18rem" },
-                attrs: {
-                  id: "carouselExampleControls",
-                  "data-ride": "carousel"
-                }
-              },
-              [
-                _c("div", { staticClass: "carousel-inner" }, [
-                  _c("div", { staticClass: "carousel-item active" }, [
-                    _c("img", {
-                      staticClass: "d-block w-100",
-                      staticStyle: { width: "25rem", height: "18rem" },
-                      attrs: {
-                        alt: "First slide",
-                        src: "http://localhost:8000/uploads/" + item.images
-                      }
-                    })
-                  ])
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "album py-5 bg-light" }, [
+      _c("div", { staticClass: "container" }, [
+        _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.advertisements, function(item) {
+            return _c("div", { key: item.id, staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "card mb-3 box-shadow" }, [
+                _c("img", {
+                  staticClass: "card-img-top",
+                  attrs: {
+                    src: "http://localhost:8000/uploads/" + item.images,
+                    alt: "Card image cap"
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("p", [_vm._v(_vm._s(item.productName))]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(_vm._s(item.description))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "d-flex justify-content-between align-items-center"
+                    },
+                    [
+                      _c("small", { staticStyle: { float: "left" } }, [
+                        _vm._v("Posté par :\n                  "),
+                        _c("strong", [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(item.user.name) +
+                              "\n                  "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "text-muted" }, [
+                        _vm._v("9 mins")
+                      ])
+                    ]
+                  )
                 ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "card mr-4" }, [
-              _c(
-                "div",
-                { staticClass: "card-body", staticStyle: { width: "18rem" } },
-                [
-                  _c("h5", { staticClass: "card-title lead" }, [
-                    _vm._v(_vm._s(item.productName))
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "card-text text-sm" }, [
-                    _vm._v(
-                      "\n              " +
-                        _vm._s(item.description) +
-                        "\n            "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _c("small", [
-                      _vm._v("Posté par :\n                "),
-                      _c("strong", [
-                        _vm._v(
-                          "\n                  " +
-                            _vm._s(item.user.name) +
-                            "\n                "
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("small", [
-                      _vm._v("Categorie :\n                "),
-                      _c("strong", [
-                        _vm._v(
-                          "\n                  " +
-                            _vm._s(item.category) +
-                            "\n                "
-                        )
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("inertia-link", { attrs: { href: "post/" + item.id } }, [
-                    _c(
-                      "button",
-                      { staticClass: "btn btn-info btn-md offset-6" },
-                      [_vm._v("Consulter")]
-                    )
-                  ])
-                ],
-                1
-              )
+              ])
             ])
-          ])
-        }),
-        0
-      )
+          }),
+          0
+        )
+      ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "carousel slide",
+        attrs: { id: "carouselExampleControls", "data-ride": "carousel" }
+      },
+      [
+        _c("div", { staticClass: "carousel-inner" }, [
+          _c("div", { staticClass: "carousel-item active" }, [
+            _c("img", {
+              staticClass: "d-block w-100",
+              attrs: {
+                src:
+                  "https://images.unsplash.com/photo-1549082969-62ab24fa9d7d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8OTN8fGRldmVsb3BlcnxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                alt: "..."
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "carousel-item" }, [
+            _c("img", {
+              staticClass: "d-block w-100",
+              attrs: {
+                src:
+                  "https://images.unsplash.com/photo-1549082969-62ab24fa9d7d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8OTN8fGRldmVsb3BlcnxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                alt: "..."
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "carousel-item" }, [
+            _c("img", {
+              staticClass: "d-block w-100",
+              attrs: {
+                src:
+                  "https://images.unsplash.com/photo-1549082969-62ab24fa9d7d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8OTN8fGRldmVsb3BlcnxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                alt: "..."
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "carousel-control-prev",
+            attrs: {
+              href: "#carouselExampleControls",
+              role: "button",
+              "data-slide": "prev"
+            }
+          },
+          [
+            _c("span", {
+              staticClass: "carousel-control-prev-icon",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "sr-only" }, [_vm._v("Previous")])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "carousel-control-next",
+            attrs: {
+              href: "#carouselExampleControls",
+              role: "button",
+              "data-slide": "next"
+            }
+          },
+          [
+            _c("span", {
+              staticClass: "carousel-control-next-icon",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "sr-only" }, [_vm._v("Next")])
+          ]
+        )
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 

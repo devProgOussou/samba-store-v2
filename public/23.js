@@ -164,7 +164,7 @@ var render = function() {
             "div",
             {
               staticClass: "col-md-8 offset-4",
-              staticStyle: { "margin-top": "-23em" }
+              staticStyle: { "margin-top": "-28em" }
             },
             [
               _c(
