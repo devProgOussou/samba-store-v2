@@ -20,7 +20,7 @@ class AdvertisementController extends Controller
      */
     public function index()
     {
-        $advertisements = Advertisement::all()->where('user_id', Auth::user()->id);
+        $advertisements = Advertisement::where('user_id', Auth::user()->id)->get();
         return Inertia::render('User/Dashboard', [
             'advertisements' => $advertisements,
         ]);
@@ -95,8 +95,8 @@ class AdvertisementController extends Controller
      */
     public function show($id)
     {
-        $advertisement = Advertisement::all()->where('id', $id);
-        // dd($advertisement);
+        $advertisement = Advertisement::where('id', $id)->get();
+
         return Inertia::render('User/Show', [
             'advertisement' => $advertisement,
         ]);
@@ -133,20 +133,27 @@ class AdvertisementController extends Controller
      */
     public function destroy($id)
     {
-        DB::delete("DELETE FROM advertisements WHERE id = $id");
+        // DB::delete("DELETE FROM advertisements WHERE id = $id");
+        Advertisement::where('id', $id)->delete();
         return back();
 
     }
 
     public function deactivate($id)
     {
-        DB::update("UPDATE advertisements SET isAvailable = false WHERE id = $id");
+        // DB::update("UPDATE advertisements SET isAvailable = false WHERE id = $id");
+        Advertisement::where('id', $id)->update([
+            'isAvailable' => false
+        ]);
         return redirect()->route('home.index');
     }
 
     public function activate($id)
     {
-        DB::update("UPDATE advertisements SET isAvailable = true WHERE id = $id");
+        // DB::update("UPDATE advertisements SET isAvailable = true WHERE id = $id");
+        Advertisement::where('id', $id)->update([
+            'isAvailable' => true
+        ]);
         return back();
     }
 }
