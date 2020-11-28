@@ -3,7 +3,7 @@
     <side-bar-user></side-bar-user>
     <div class="container">
       <div class="row">
-        <div class="col-md-8 offset-4" style="margin-top: -23em">
+        <div class="col-md-8 offset-4" style="margin-top: -28em">
           <form @submit.prevent="handleSubmit">
             <div class="form-group">
               <label for="type">categorie</label>

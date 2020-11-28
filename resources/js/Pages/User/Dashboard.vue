@@ -3,7 +3,7 @@
     <side-bar-user></side-bar-user>
     <div class="container">
       <div class="row">
-        <div class="col-md-8 offset-4" style="margin-top: -23em">
+        <div class="col-md-8 offset-4" style="margin-top: -29em">
           <div class="row">
             <div v-for="item in advertisements" :key="item.id">
               <div class="card mr-5" style="width: 20rem">
