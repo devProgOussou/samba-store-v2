@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Company;
+use App\Models\Message;
 use App\Models\Personal;
 use App\Models\contactForm;
 use Illuminate\Http\Request;
@@ -56,8 +57,8 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        $user = DB::select("SELECT * FROM users WHERE id = $id");
-        $advertisements = DB::select("SELECT * FROM advertisements WHERE user_id = $id");
+        $user = User::where('id', $id)->get();
+        $advertisements = Advertisement::where('user_id', $id)->get();
         return Inertia::render('Admin/User', [
             'user' => $user,
             'advertisements' => $advertisements
@@ -95,11 +96,11 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        DB::delete("DELETE FROM personals WHERE user_id = $id");
-        DB::delete("DELETE FROM companies WHERE user_id = $id");
-        DB::delete("DELETE FROM advertisements WHERE user_id = $id");
-        DB::delete("DELETE FROM messages WHERE user_id = $id");
-        DB::delete("DELETE FROM users WHERE id = $id");
+        Personal::where('user_id', $id)->delete();
+        Company::where('user_id', $id)->delete();
+        Advertisement::where('user_id', $id)->delete();
+        Message::where('user_id', $id)->delete();
+        User::where('id', $id)->delete();
         return back();
     }
 
@@ -110,7 +111,7 @@ class AdminController extends Controller
      */
     public function showCompanies()
     {
-        $companies = DB::select("SELECT * FROM users INNER JOIN companies WHERE users.id = companies.user_id");
+        $companies = Company::with('user')->get();
 
         return Inertia::render('Admin/CompanyShow', [
             'companies' => $companies
@@ -124,7 +125,7 @@ class AdminController extends Controller
      */
     public function showPersonals()
     {
-        $personals = DB::select("SELECT * FROM users INNER JOIN personals WHERE users.id = personals.user_id");
+        $personals = Personal::with('user')->get();
 
         return Inertia::render('Admin/PersonalShow', [
             'personals' => $personals
@@ -140,7 +141,9 @@ class AdminController extends Controller
      */
     public function deactivate($id)
     {
-        DB::update("UPDATE users SET isActive = false WHERE id = $id");
+        User::where('id', $id)->update([
+            'isActive' => false
+        ]);
         return back();
     }
 
@@ -152,7 +155,9 @@ class AdminController extends Controller
      */
     public function activate($id)
     {
-        DB::update("UPDATE users SET isActive = true WHERE id = $id");
+        User::where('id', $id)->update([
+            'isActive' => true
+        ]);
         return back();
     }
 
@@ -165,9 +170,9 @@ class AdminController extends Controller
      */
     public function showCompany($id)
     {
-        $company = Company::all()->where('id', $id);
-        $advertisements = Advertisement::all()->where('user_id', $id);
-        // dd($company);
+        $company = Company::where('id', $id)->get();
+        $advertisements = Advertisement::where('user_id', $id)->get();
+
         return Inertia::render('Admin/showCompany', [
             'company' => $company,
             'advertisements' => $advertisements
@@ -176,9 +181,9 @@ class AdminController extends Controller
 
     public function showPersonal($id)
     {
-        $personal = User::all()->where('id', $id);
-        $advertisements = Advertisement::all()->where('personal_id', $id);
-        // dd($personal);
+        $personal = User::where('id', $id)->get();
+        $advertisements = Advertisement::where('personal_id', $id)->get();
+
         return Inertia::render('Admin/showPersonal', [
             'personal' => $personal,
             'advertisements' => $advertisements
@@ -187,26 +192,24 @@ class AdminController extends Controller
 
     public function DeletePersonalPost($id)
     {
-        DB::delete("DELETE FROM advertisements WHERE id = $id");
+        Advertisement::where('id', $id)->delete();
         return back();
     }
 
     public function personalDelete($id)
     {
-        // User::find()->delete();
-        DB::delete("DELETE FROM advertisements WHERE personal_id = $id");
-        DB::delete("DELETE FROM personals WHERE user_id = $id");
-        DB::delete("DELETE FROM users WHERE id = $id");
+        Advertisement::where('personal_id', $id)->delete();
+        Personal::where('user_id', $id)->delete();
+        User::where('id', $id)->delete();
 
         return back();
     }
 
     public function companyDelete($id)
     {
-
-        DB::delete("DELETE FROM advertisements WHERE company_id = $id");
-        DB::delete("DELETE FROM companies WHERE user_id = $id");
-        DB::delete("DELETE FROM users WHERE id = $id");
+        Advertisement::where('company_id', $id)->delete();
+        Company::where('user_id', $id)->delete();
+        User::where('id', $id)->delete();
         return back();
     }
 
