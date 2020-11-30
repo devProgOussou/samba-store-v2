@@ -11,7 +11,6 @@ use App\Models\contactForm;
 use Illuminate\Http\Request;
 use App\Models\Advertisement;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
