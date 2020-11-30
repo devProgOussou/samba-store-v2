@@ -35,12 +35,10 @@
   </div>
 </template>
 <script>
-import AppLayout from "../../Shared/AppLayout.vue";
 import SideBarUser from "../../Shared/SideBarUser";
 
 export default {
   components: {
-    AppLayout,
     SideBarUser,
   },
   props: ["advertisements"],

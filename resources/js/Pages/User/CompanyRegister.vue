@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import AppLayout from "../../Shared/AppLayout";
 import SelectInput from "../../Shared/SelectInput";
 import FileInput from "../../Shared/FileInput";
 import SideBarUser from "../../Shared/SideBarUser";
@@ -40,7 +39,6 @@ export default {
   name: "Register",
   components: {
     SelectInput,
-    AppLayout,
     FileInput,
     SideBarUser,
   },

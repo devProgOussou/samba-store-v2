@@ -35,13 +35,11 @@
 
 <script>
 import SideBarUser from "../../Shared/SideBarUser";
-import AppLayout from "../../Shared/AppLayout";
 import FileInput from "../../Shared/FileInput";
 
 export default {
   name: "Register",
   components: {
-    AppLayout,
     FileInput,
     SideBarUser,
   },

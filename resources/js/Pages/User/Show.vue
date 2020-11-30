@@ -25,11 +25,9 @@
 
 <script>
 import SideBarUser from "../../Shared/SideBarUser";
-import AppLayout from "../../Shared/AppLayout";
 
 export default {
   components: {
-    AppLayout,
     SideBarUser,
   },
   props: ["advertisement"],
