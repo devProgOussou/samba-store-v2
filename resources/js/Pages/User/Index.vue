@@ -1,6 +1,7 @@
 <template>
   <div>
     <side-bar-user></side-bar-user>
+    <FlashMessage :position="'right top'"></FlashMessage>
     <div class="container">
       <div class="row">
         <div class="col-md-8 offset-4" style="margin-top: -28em">
@@ -74,7 +75,10 @@ export default {
       this.$inertia.post("/userPost", data, {
         onSuccess: () => {
           this.sending = false;
-          console.log("Send Success");
+          this.flashMessage.success({
+            message: "Votre annonce a ete poste avec success!",
+            time: 5000,
+          });
         },
       });
     },

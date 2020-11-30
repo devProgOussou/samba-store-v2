@@ -1,6 +1,7 @@
 <template>
   <div>
     <side-bar-user></side-bar-user>
+    <FlashMessage :position="'right top'"></FlashMessage>
     <div class="container">
       <div class="row">
         <div class="col-md-8 offset-4" style="margin-top: -29em">
@@ -73,7 +74,9 @@ export default {
 
       this.$inertia.post(`/updateUserProfile/${this.id}`, data, {
         onSuccess: () => {
-          console.log("Send Success");
+          this.flashMessage.success({
+            message: "Votre profil a ete modifier avec success!",
+          });
         },
       });
     },

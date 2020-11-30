@@ -48,12 +48,6 @@ export default {
       url: "advertisement/",
     };
   },
-  methods: {
-    logout() {
-      axios.post("/logout").then((response) => {
-        window.location = "/";
-      });
-    },
-  },
+  methods: {},
 };
 </script>
