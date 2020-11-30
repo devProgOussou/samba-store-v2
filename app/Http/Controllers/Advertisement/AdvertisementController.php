@@ -133,7 +133,6 @@ class AdvertisementController extends Controller
      */
     public function destroy($id)
     {
-        // DB::delete("DELETE FROM advertisements WHERE id = $id");
         Advertisement::where('id', $id)->delete();
         return back();
 
@@ -141,7 +140,6 @@ class AdvertisementController extends Controller
 
     public function deactivate($id)
     {
-        // DB::update("UPDATE advertisements SET isAvailable = false WHERE id = $id");
         Advertisement::where('id', $id)->update([
             'isAvailable' => false
         ]);
@@ -150,7 +148,6 @@ class AdvertisementController extends Controller
 
     public function activate($id)
     {
-        // DB::update("UPDATE advertisements SET isAvailable = true WHERE id = $id");
         Advertisement::where('id', $id)->update([
             'isAvailable' => true
         ]);
