@@ -67,7 +67,9 @@
                       {{ item.user.name }}
                     </strong>
                   </small>
-                  <small class="text-muted">9 mins</small>
+                  <small class="text-muted">
+                    <inertia-link :href="'/post/' + item.id">Afficher</inertia-link>
+                  </small>
                 </div>
               </div>
             </div>
@@ -91,6 +93,7 @@ export default {
   data() {
     return {
       q: null,
+      createdAt: null,
     };
   },
   methods: {
@@ -109,7 +112,7 @@ export default {
     },
   },
   mounted() {
-    let unix_timestamp = 1549312452;
+    let unix_timestamp = 1606736184;
     var date = new Date(unix_timestamp * 1000);
     var hours = date.getHours();
     var minutes = "0" + date.getMinutes();

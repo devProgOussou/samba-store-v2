@@ -1,5 +1,6 @@
 <template>
   <div>
+    <FlashMessage :position="'right top'"></FlashMessage>
     <div class="container">
       <div class="row mt-5">
         <div v-for="item in advertisements" :key="item.id" class="mt-5">
@@ -33,7 +34,7 @@
                 </small>
               </p>
               <div class="text-center">
-                <a href="#" class="btn btn-info btn-round mb-4" data-toggle="modal" data-target="#modalLoginForm">Commander</a>
+                <button class="btn btn-info btn-round mb-4" data-toggle="modal" data-target="#modalLoginForm">Commander</button>
               </div>
             </div>
           </div>
@@ -100,7 +101,9 @@ export default {
 
       this.$inertia.post("/sendMessage", data, {
         onSuccess: () => {
-          console.log("Send Success");
+          this.flashMessage.success({
+            message: "Votre Message a ete envoyer avec success!",
+          });
         },
       });
     },
