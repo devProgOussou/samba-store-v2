@@ -45,13 +45,11 @@
 </template>
 
 <script>
-import AppLayout from "../../Shared/AppLayout";
 import ShowLink from "../../Shared/ShowLink";
 
 export default {
   props: ["personals"],
   components: {
-    AppLayout,
     ShowLink,
   },
 };
