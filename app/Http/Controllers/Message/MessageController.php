@@ -48,7 +48,8 @@ class MessageController extends Controller
         $message->message = $request->input('message');
         $message->user_id = Auth::user()->id;
         $message->save();
-        return redirect()->route('message.displayAllMessage')->with('message', 'Message envoyer!');
+        // return redirect()->route('message.displayAllMessage');
+        return back();
     }
 
     /**
@@ -59,9 +60,10 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        $messageSend = Message::with('user')->where('sender_id', Auth::user()->id)->get();
-
-        $messages = Message::with('user')->where('sender_id', $id)->get();
+        $messageSend = Message::with('user')->where('sender_id', Auth::user()->id)->orderBy('created_at', 'asc')->get();
+        // dd($messageSend);
+        $messages = Message::with('user')->where('sender_id', $id)->orderBy('created_at', 'asc')->get();
+        // dd($messages);
         return Inertia::render('User/displayMessage', [
             'messages' => $messages,
             'messageSend' => $messageSend
