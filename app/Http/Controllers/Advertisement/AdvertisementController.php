@@ -82,9 +82,10 @@ class AdvertisementController extends Controller
         $advertisement->user_id = Auth::user()->id;
         $advertisement->save();
         $advertisements = Advertisement::where('user_id', Auth::user()->id)->with('user')->get();
-        return Inertia::render('User/Dashboard', [
-            'advertisements' => $advertisements,
-        ]);
+        return back();
+        // return Inertia::render('User/Dashboard', [
+        //     'advertisements' => $advertisements,
+        // ]);
     }
 
     /**
