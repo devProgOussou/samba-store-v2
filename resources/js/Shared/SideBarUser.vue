@@ -39,7 +39,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 /*!
  * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template/simple-sidebar)
